@@ -1,0 +1,7 @@
+
+### Ignore folder ###
+/dist
+/node_modules
+
+### Ignore file ###
+.env
