@@ -60,22 +60,24 @@ class exportController {
 	    		console.log(`Failure to archiving with error: ${err}`)
 	  		}
 
-	  		if (stderr != "") {
-	  			console.log(`stderr: ${stderr}`)
-	  		}
-
-	  		if (stdout.includes('finish uploading')) {
-	  			console.log('Archiving success')
-	  		} else {
-	  			console.log('Archiving failure!!!')
-	  		}
-
 	  		let mailOptions = {
 		        from: 'no.reply.ioskit@gmail.com',
 		        to: `${req.body.email}`,
 		        subject: 'Generated IPA',
-		        text: `Here your IPA ${req.headers.host}/${req.body.appname}.ipa`
 		    }
+
+	  		if (stderr != "") {
+	  			console.log(`stderr: ${stderr}`)
+	  			mailOptions.text = `${stderr}`
+	  		}
+
+	  		if (stdout.includes('finish uploading')) {
+	  			console.log('Archiving success')
+	  			mailOptions.text = `Here your IPA ${req.headers.host}/${req.body.appname}.ipa`
+	  		} else {
+	  			console.log('Archiving failure!!!')
+	  			mailOptions.text = "Archiving failure"
+	  		}
 
 		    transporter.sendMail(mailOptions, (error, info) => {
 		        if (error) {
