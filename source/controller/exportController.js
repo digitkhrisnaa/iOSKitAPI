@@ -76,7 +76,7 @@ class exportController {
 	  			mailOptions.text = `Here your IPA ${req.headers.host}/${req.body.appname}.ipa`
 	  		} else {
 	  			console.log('Archiving failure!!!')
-	  			mailOptions.text = "Archiving failure"
+	  			mailOptions.text = `Archiving failure ${stdout}`
 	  		}
 
 		    transporter.sendMail(mailOptions, (error, info) => {
